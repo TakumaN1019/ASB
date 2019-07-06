@@ -1,0 +1,96 @@
+<div id="form">
+
+  <h1><%= title %></h1>
+
+  <%= form_with(model: bot, local: true) do |form| %>
+
+  <% if @bot.errors.any? %>
+    <div class="field error_field">
+      <% @bot.errors.full_messages.each do |message| %>
+        <p class="error_message"><i class="far fa-comment"></i> <%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+
+    <div class="field">
+      <%= form.text_field :title, maxlength:"50", placeholder:"ボットネーム", class:"bot_title require" %>
+    </div>
+
+    <% if takuman?(current_user) %>
+      <div class="field">
+        <div class="selectbox sb">
+          <%= form.select :situation, ["未選択", "ものづくり", "日常生活", "ネタ", "その他", "ピックアップしない"], class: "sample" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="select_field">
+      <div>
+        <%= form.fields_for :selects do |select| %>
+          <%= render 'select_fields', f: select %>
+        <% end %>
+      </div>
+      <div class="plus_field"><%= link_to_add_association content_tag(:i, "", class:"fas fa-plus"), form, :selects, class: "plus" %></div>
+    </div>
+
+    <p id="require_message" style="text-align:center; clear:both;"></p>
+
+    <script>
+      // cocoonの追加フォームの数を制限
+      $(function() {
+
+        // ページを表示したときの最初のcatchの個数を取得
+        var select_count = $(".select_field .nested-fields").length; 
+
+        // ページが読み込まれたときに実行
+        check_to_hide_or_show_add_link(select_count);
+
+        // 追加ボタンを押す手前で実行
+        $(".select_field").on("cocoon:after-insert", function() {
+          select_count++; // selectの個数を１増やす
+          check_to_hide_or_show_add_link(select_count);
+        });
+
+        // 削除ボタンを押す手前で実行
+        $(".select_field").on("cocoon:after-remove", function() {
+          select_count--; // catchの個数を１減らす
+          check_to_hide_or_show_add_link(select_count);
+        });
+
+        // 追加できるフォームは100個まで
+        function check_to_hide_or_show_add_link(select_count) {
+          if (select_count >= 100) {
+            $(".plus").hide();
+          } else {
+            $(".plus").show();
+          }
+        }
+      });
+    </script>
+
+    <script>
+      // 入力チェックのスクリプト
+      $(function(){
+        // コンテンツタイトルが空白またはスペースだけであればsubmitさせない
+        setInterval(function(){
+          let value = $(".require").val();
+          if ( value == "" || !value.match(/[^\s\t]/) ) {
+            $("#require_message").text("ボットネームを入力しましょう");
+            $(".send_btn").css({"background":"#9fa0a0", "border":"none"});
+            $(".send_btn").prop("disabled", true);
+          } else {
+            $("#require_message").text("");
+            $(".send_btn").css({"background":"#55acee", "border":"0.5px solid #55acee"});
+            $(".send_btn").prop("disabled", false);
+          }
+        },1000);
+      });
+    </script>
+
+
+    <%= form.submit "CREATE", disabled:true, class:"send_btn" %>
+
+  <% end %>
+
+</div>

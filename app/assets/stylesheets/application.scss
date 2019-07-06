@@ -1,0 +1,214 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+  $red: #f44336;
+  $blue: #2196F3;
+  $green: #4CAF50;
+  $yellow: #FFEB3B;
+  $orange: #FF9800;
+  $white: #FAFAFA;
+  $light_grey: #E0E0E0;
+  $grey: #9E9E9E;
+  $black: #263238;
+  $deep_black: #212121;
+
+  $main_color: $blue;
+
+  body { margin:0; padding:50px 0 0 0; box-sizing:border-box; background:$white; }
+  div, h1, h2, h3, h4, p, a, span, input, textarea, ul, li, header, footer { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:rgba(0,0,0,0); }
+  a, a:hover, a:active { text-decoration:none; background:none; color:$blue; }
+
+
+  // font-famiry
+  h1, h2, h3, h4, p, a { font-family: 'Roboto', 'Kosugi Maru', sans-serif; }
+  .logo_font, .btn, .send_btn, #flash p { font-family: 'Fredoka One', cursive; /*'Roboto', sans-serif;*/ }
+
+  .ads_mobile { width:100%; height:auto; margin:30px auto; padding:20px 0; text-align:center; }
+  .ads_pc { display:none; width:100%; height:auto; margin:30px auto; padding:20px 0; text-align:center; }
+
+  #success { position:fixed; top:80px; right:-100%; padding:15px 50px 15px 30px; background:$green; border-radius:1000px 0 0 1000px;
+    p { color:white; font-size:18px; text-align:center; padding:0; }
+  }
+
+  #notice { position:fixed; top:0; bottom:0; left:0; right:0; z-index:20; width:90%; height:200px; margin:auto;  padding:30px; background:$white; border-radius:10px; }
+  #notice_back { position:fixed; top:0; bottom:0; left:0; right:0; z-index:15; width:100%; height:100%; margin:auto;  background:rgba(0,0,0,0.6); cursor:pointer; }
+
+  #alert { width:95%; height:auto; margin:30px auto; padding:20px; background:$white; border:2px solid $red; border-radius:10px; text-align:center;
+    #message { width:100%; height:auto; padding:30px 20px; color:$black; font-size:15px; }
+    #close { width:100%; height:auto; color:$red; font-size:20px; display:inline; cursor:pointer; }
+  }
+
+  header { width:100%; height:50px; position:fixed; top:0; left:0; right:0; background:$main_color; z-index:10;
+    #logo { width:auto; height:50px; margin-left:20px; float:left; display:table; }
+      #logo a { color:$white; font-size:25px; padding:10px; display:table-cell; vertical-align:middle; }
+    #logo:hover { background:rgba(0,0,0,0.05); border-radius:100000px; }
+    .show_header_menu { cursor:pointer; }
+    #mypage { width:50px; height:50px; margin:0; padding:0; float:right; color:$white; font-size:30px; text-align:center; display:table; }
+      #mypage a { color:$white; display:table-cell; vertical-align:middle; }
+    #mypage a:hover { background:rgba(0,0,0,0.05); border-radius:10000px; }
+  }
+
+
+  #form { width:100%; height:auto; margin:auto; padding:20px 0;
+    h1 { color:$black; font-size:35px; text-align:center; margin:30px 0; }
+    p { color:$black; font-size:20px; line-height:30px; padding:0 20px; }
+
+    .field { width:100%; height:60px; margin:0 auto 20px auto; padding:0; text-align:center; 
+      .bot_title { width:80%; height:40px; margin:auto; padding:5px 0 5px 10px; color:#2b2b2b; font-size:18px; background:white; border:none; border-radius:5px; }
+      .select_name { width:65%; height:40px; margin:0 0 0 10%; padding:5px 0 5px 10px; color:#2b2b2b; font-size:18px; background:white; border:none; border-radius:5px; float:left; }
+      input:focus { border:1px solid $blue; outline:0; }
+      .minus_field { width:10%; height:40px; margin:0 10% 20px 0; padding-top:12px; float:right;
+        .minus { color:$blue; text-align:center; font-size:25px; }
+      }
+
+      // 選択数を決めるためのセレクトボックス
+      .selectbox { overflow:hidden; width:120px; margin:2em auto; text-align:center; }
+      .selectbox select { width:100%; padding-right:1em; cursor:pointer; text-indent:0.01px; text-overflow:ellipsis; border: none; outline:none;
+                          background:transparent; background-image:none; box-shadow:none; -webkit-appearance:none; appearance:none; }
+      .selectbox select::-ms-expand { display:none; }
+      .selectbox.sb { position:relative; border-radius:2px; border:2px solid $blue; border-radius:5px; background:white; }
+      .selectbox.sb::before { position:absolute; top:0.8em; right:0.8em; width:0; height:0; padding:0;
+                              content:''; border-left:6px solid transparent; border-right:6px solid transparent; border-top:6px solid $blue; pointer-events:none; }
+      .selectbox.sb select { padding:8px 38px 8px 8px; color:$blue; }
+    }
+
+    .plus_field { width:100%; height:auto; margin:30px 0; padding:0; text-align:center; clear:both; 
+      .plus { display:inline-block; width:100px; height:50px; margin:auto; padding:10px; background:white; 
+              color:$blue; font-size:30px; text-align:center; border:1px solid $blue; border-radius:5px; }
+    }
+
+    .btn { display:block; width:80%; height:50px; margin:30px auto; padding-top:20px; color:white; font-size:30px; text-align:center; background:$blue; border-radius:15px; }
+    .send_btn { display:block; width:80%; height:70px; margin:30px auto; padding-top:0; background:#9fa0a0; border-radius:15px; border:none; 
+                color:white; font-size:30px; text-align:center; cursor:pointer; }
+
+  }
+
+  #user { width:100%; height:auto; margin:auto; padding:50px 0; background:white; text-align:center;
+    .userimage { width:100px; height:100px; margin:auto; border-radius:10000px; }
+    .username { text-align:center; line-height:25px; display:inline-block; width:100%; height:auto; margin-top:20px; }
+      .name { color:$black; font-size:25px; }
+      .nickname { color:#909090; font-size:20px; }
+    .btn { display:block; width:80%; height:70px; margin:30px auto; padding-top:20px; color:white; font-size:30px; text-align:center; background:$blue; border-radius:15px; }
+    .btn:hover { opacity:0.9; }
+  }
+
+  #bot { width:100%; height:auto; margin:auto; padding:50px 0; background:white; text-align:center; 
+    h1 { color:$black; font-size:30px; text-align:center; padding:10px 20px; line-height:35px; }
+    #the_select { display:none; width:95%; height:auto; margin:30px auto; padding:20px 0; background:$blue; border-radius:10px; 
+      #the_select_inner { width:85%; height:auto; margin:auto; padding:10px; background:white; border-radius:10px; 
+        h2 { color:$black; font-size:25px; text-align:center; line-height:30px; }
+      }
+    }
+    #share { display:none; width:100%; height:auto; margin:30px auto; padding:30px 0; background:$yellow; 
+      h3 { color:$blue; }
+      .btn { display:block; width:80%; height:70px; margin:30px auto; padding-top:20px; color:white; font-size:30px; text-align:center; background:$blue; border-radius:15px; }
+      .btn:hover { opacity:0.9; }
+    }
+
+    // 選択数を決めるためのセレクトボックス
+    .selectbox { overflow:hidden; width:80px; margin:2em auto; text-align:center; }
+    .selectbox select { width:100%; padding-right:1em; cursor:pointer; text-indent:0.01px; text-overflow:ellipsis; border: none; outline:none; 
+                        background:transparent; background-image:none; box-shadow:none; -webkit-appearance:none; appearance:none; }
+    .selectbox select::-ms-expand { display:none; }
+    .selectbox.sb { position:relative; border-radius:2px; border:2px solid $blue; border-radius:5px; background:white; }
+    .selectbox.sb::before { position:absolute; top:0.8em; right:0.8em; width:0; height:0; padding:0;
+                            content:''; border-left:6px solid transparent; border-right:6px solid transparent; border-top:6px solid $blue; pointer-events:none; }
+    .selectbox.sb select { padding:8px 38px 8px 8px; color:$blue; }
+
+    .btn { display:block; width:80%; height:70px; margin:30px auto; padding-top:20px; background:$blue; border-radius:15px; 
+           color:white; font-size:30px; text-align:center; cursor:pointer; }
+    .btn:hover { opacity:0.9; }
+
+    // editボタン、中身を見るボタン、中身一覧
+    #edit_or_delete, #look_select { font-size:20px; text-align:center; margin-bottom:30px; padding:10px; cursor:pointer; }
+    #edit, #delete, #look_select { color:$black; padding:10px; }
+    #edit:hover, #delete:hover, #look_select:hover { background:rgba(0,0,0,0.05); border-radius:1000px; }
+    #selects { display:none; width:90%; height:auto; margin:auto; padding:0; 
+      li { color:$black; font-size:20px; text-align:center; background:white; margin:20px auto; list-style:none; }
+    }
+  }
+
+
+  #bots { width:100%; height:auto; margin:30px auto; padding:20px 0; background:white;  
+    h1 { color:$black; font-size:25px; text-align:center; line-height:30px; margin:30px 0; }
+    .bot { width:90%; height:80px; margin:0 auto; padding:0; 
+      p { color:$blue; font-size:20px; margin:0; padding:5px 20px; background:white; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+      p:hover { background:rgba(0,0,0,0.05); border-radius:10000px; }
+    }
+  }
+
+  footer { width:100%; height:auto; padding:25px 0; clear:both; text-align:center;
+    ul { width:95%; height:auto; margin:auto; list-style:none; text-align:center; }
+      li { margin:10px; font-size:18px; display:inline-block; }
+        li a { color:#909090; padding:10px; }
+        li a:hover { color:#909090; background:rgba(0,0,0,0.05); border-radius:1000px; }
+    #footer_logo { width:100%; height:auto; margin-top:30px; clear:both; position:relative; }
+      #footer_logo_soto { width:35px; height:35px; margin:auto; background:#909090; border-radius:10000px; position:absolute; top:0; bottom:0; left:0; right:0; }
+      #footer_logo_uti { width:13px; height:13px; margin:auto; background:$white; border-radius:10000px; position:absolute; top:0; bottom:0; left:0; right:0; }
+  }
+
+  @media screen and (min-width:750px) {
+
+    body { padding-top:90px; }
+
+    #notice { width:400px; }
+
+    .ads_mobile { display:none; }
+    .ads_pc { display:block; }
+
+    header { height:60px;
+      #logo { height:60px; }
+        #logo a { font-size:20px; margin:10px 20px; padding:7.5px; }
+      #mypage { width:60px; height:60px; margin-right:10px; font-size:35px; }
+    }
+
+    #form { width:80%; margin:auto;
+      .btn { width:300px; }
+      .field {
+        li:hover label{ color:$black; }
+      }
+      .select_field {
+        .plus:hover, .minus:hover { color:white; background:$blue; border:0.5px solid white; text-decoration:none; }
+      }
+      .actions {
+        #submit:hover { border-radius:10px; }
+      }
+    }
+
+    #user { width:70%; margin:30px auto; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2); }
+    #bot { width:70%; margin:30px auto; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2); }
+    #bots { width:70%; margin:30px auto; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.2); 
+      .bot { 
+        p { padding:5px 40px;  }
+      }
+    }
+
+  }
+
+
+  @media screen and (min-width:960px) {
+
+    #form { width:50%; margin:auto; }
+    #user { width:60%; }
+    #bot { width:60%; }
+    #bots { width:60%; }
+
+  }
+
+
+
+

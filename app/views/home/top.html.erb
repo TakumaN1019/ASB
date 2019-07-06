@@ -1,0 +1,17 @@
+<h1>TakumaN ASB</h1>
+<p>ようこそ、ASBへ。</p>
+
+  <div id="auth_links">
+    <% if not user_signed_in? %>
+      <% if devise_mapping.omniauthable? %>
+        <% resource_class.omniauth_providers.each do |provider| %>
+          <% if OmniAuth::Utils.camelize(provider) == "Twitter" %>
+            <%= link_to(omniauth_authorize_path(resource_name, provider), class:"auth_link twitter") do %>
+              <i class="fab fa-twitter"></i> ログイン/登録
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+

@@ -1,0 +1,188 @@
+<% content_for :title do %>
+  <%= "#{@bot.title} | Bot Select" %>
+<% end %>
+
+<div id="bot">
+
+  <h1><%= @bot.title %></h1>
+
+  <div id="the_select">
+    <div id="the_select_inner">
+      <p style="display:none;" class="selects_json"><%= @selects_json %></p>
+      <h2><span class="select1"></span><span class="select2"></span><span class="select3"></span><span class="select4"></span><span class="select5"></span></h2>
+    </div>
+  </div>
+
+  <div id="share">
+    <h3>Twitterでシェアしよう<i class="fas fa-bolt"></i></h3>
+    <%= link_to "http://twitter.com/share?url=#{@url}&text=share_content", class:"btn share_btn", target:"_blank" do %><i class="fab fa-twitter"></i> SHARE<% end %>
+  </div>
+
+  <%# アドセンス広告=>レクタングル大 %>
+  <%= render "home/adsense" %>
+
+  <% if @bot.selects.present? %>
+    <div class="selectbox sb">
+      <select name="select_quantity" required>
+        <% if @bot.selects.count.to_i >= 1 %><option value="1">１つ</option><% end %>
+        <% if @bot.selects.count.to_i >= 2 %><option value="2">２つ</option><% end %>
+        <% if @bot.selects.count.to_i >= 3 %><option value="3">３つ</option><% end %>
+        <% if @bot.selects.count.to_i >= 4 %><option value="4">４つ</option><% end %>
+        <% if @bot.selects.count.to_i >= 5 %><option value="5">５つ</option><% end %>
+      </select>
+    </div>
+
+    <script>
+      $(function(){
+
+        $(".select_btn").click(function(){
+          $("html,body").animate({scrollTop:0},"100");
+          $(".share_btn").attr("href", "http://twitter.com/share?url=" + $(location).attr("href") + "&text=share_content");
+          var selectsJson = $('.selects_json').text();
+          // arr_jsonをパースし配列にする
+          var selects = JSON.parse(selectsJson);
+          var sq = $('[name=select_quantity]').val();
+          var theSelect = choose_at_random(selects, sq);
+          $("#the_select").hide().delay(500).fadeIn(2500);
+          $("#share").hide().delay(1500).slideDown().fadeIn(2500);
+
+          var botTitle = $("#bot h1").text() + "%0a";
+          var hashTag = "%0a %20%23botselect";
+
+          if (sq == 1) { 
+            $(".select1").text("「" + theSelect[0].name + "」"); 
+            $(".select2").text(""); 
+            $(".select3").text(""); 
+            $(".select4").text(""); 
+            $(".select5").text(""); 
+            var selectContent = "「" + theSelect[0].name + "」";
+            var shareContent = $(".share_btn").attr("href").replace("share_content", botTitle + selectContent + hashTag );
+            $(".share_btn").attr("href", shareContent);
+          }
+          if (sq == 2) { 
+            $(".select1").text("「" + theSelect[0].name + "」"); 
+            $(".select2").text("「" + theSelect[1].name + "」"); 
+            $(".select3").text(""); 
+            $(".select4").text(""); 
+            $(".select5").text(""); 
+            var selectContent = "「" + theSelect[0].name + "」" + "「" + theSelect[1].name + "」";
+            var shareContent = $(".share_btn").attr("href").replace("share_content", botTitle + selectContent + hashTag );
+            $(".share_btn").attr("href", shareContent);
+          }
+          if (sq == 3) { 
+            $(".select1").text("「" + theSelect[0].name + "」"); 
+            $(".select2").text("「" + theSelect[1].name + "」"); 
+            $(".select3").text("「" + theSelect[2].name + "」"); 
+            $(".select4").text(""); 
+            $(".select5").text(""); 
+            var selectContent = "「" + theSelect[0].name + "」" + "「" + theSelect[1].name + "」" + "「" + theSelect[2].name + "」";
+            var shareContent = $(".share_btn").attr("href").replace("share_content", botTitle + selectContent + hashTag );
+            $(".share_btn").attr("href", shareContent);
+          }
+          if (sq == 4) { 
+            $(".select1").text("「" + theSelect[0].name + "」"); 
+            $(".select2").text("「" + theSelect[1].name + "」"); 
+            $(".select3").text("「" + theSelect[2].name + "」"); 
+            $(".select4").text("「" + theSelect[3].name + "」"); 
+            $(".select5").text(""); 
+            var selectContent = "「" + theSelect[0].name + "」" + "「" + theSelect[1].name + "」" + "「" + theSelect[2].name + "」" + "「" + theSelect[3].name + "」";
+            var shareContent = $(".share_btn").attr("href").replace("share_content", botTitle + selectContent + hashTag );
+            $(".share_btn").attr("href", shareContent);
+          }
+          if (sq == 5) { 
+            $(".select1").text("「" + theSelect[0].name + "」"); 
+            $(".select2").text("「" + theSelect[1].name + "」"); 
+            $(".select3").text("「" + theSelect[2].name + "」"); 
+            $(".select4").text("「" + theSelect[3].name + "」"); 
+            $(".select5").text("「" + theSelect[4].name + "」"); 
+            var selectContent = "「" + theSelect[0].name + "」" + "「" + theSelect[1].name + "」" + "「" + theSelect[2].name + "」" + "「" + theSelect[3].name + "」" + "「" + theSelect[4].name + "」";
+            var shareContent = $(".share_btn").attr("href").replace("share_content", botTitle + selectContent + hashTag );
+            $(".share_btn").attr("href", shareContent);
+          }
+        });
+
+        // 配列からランダムに複数個を取得する関数
+        function choose_at_random(arrayData, count) {
+          // countが設定されていない場合は1にする
+          var count = count || 1;
+          var arrayData = arrayData;
+          var result = [];
+          for (var i = 0; i < count; i++) {
+            var arrayIndex = Math.floor(Math.random() * arrayData.length);
+            result[i] = arrayData[arrayIndex];
+            // 1回選択された値は削除して再度選ばれないようにする
+            arrayData.splice(arrayIndex, 1);
+          }
+          return result;
+        }
+      });
+    </script>
+
+    <div class="btn select_btn"><i class="fas fa-robot"></i> SELECT</div>
+  <% else %>
+    <p>選択肢がまだ登録されていません。</p>
+  <% end %>
+
+
+  <% if user_signed_in? %>
+    <% if current_user?(@bot.user) || takuman?(current_user) %>
+      <p id="edit_or_delete"><%= link_to "編集", edit_bot_path(@bot), id:"edit" %>
+         <%= " | " %><%= link_to "削除", bot_path(@bot), data: { confirm: "本当に削除しますか？" }, method: :delete, id:"delete" %></p>
+    <% end %>
+  <% end %>
+
+  <p id="look_select">中身を見る</p>
+  <ul id="selects">
+    <% @bot.selects.each do |select| %>
+      <li><%= select.name %></li>
+    <% end %>
+  </ul>
+
+</div>
+
+<%# @botのsituationに応じて、botsの表示する順番を変える %>
+<% if @bot.situation == "ものづくり" %>
+  <%= render "bots/bots", title:@creative_bots_title, bots:@creative_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@life_bots_title, bots:@life_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@neta_bots_title, bots:@neta_bots %>
+  <%= render "home/adsense" %>
+  <%#= render "bots/bots", title:@etc_bots_title, bots:@etc_bots %>
+<% elsif @bot.situation == "日常生活" %>
+  <%= render "bots/bots", title:@life_bots_title, bots:@life_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@creative_bots_title, bots:@creative_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@neta_bots_title, bots:@neta_bots %>
+  <%= render "home/adsense" %>
+  <%#= render "bots/bots", title:@etc_bots_title, bots:@etc_bots %>
+<% elsif @bot.situation == "ネタ" %>
+  <%= render "bots/bots", title:@neta_bots_title, bots:@neta_bots %>
+  <%= render "home/adsense" %>
+  <%#= render "bots/bots", title:@etc_bots_title, bots:@etc_bots %>
+  <%= render "bots/bots", title:@life_bots_title, bots:@life_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@creative_bots_title, bots:@creative_bots %>
+  <%= render "home/adsense" %>
+<% elsif @bot.situation == "その他" %>
+  <%#= render "bots/bots", title:@etc_bots_title, bots:@etc_bots %>
+  <%= render "bots/bots", title:@neta_bots_title, bots:@neta_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@creative_bots_title, bots:@creative_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@life_bots_title, bots:@life_bots %>
+  <%= render "home/adsense" %>
+<% else %>
+  <%= render "bots/bots", title:@creative_bots_title, bots:@creative_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@life_bots_title, bots:@life_bots %>
+  <%= render "home/adsense" %>
+  <%= render "bots/bots", title:@neta_bots_title, bots:@neta_bots %>
+  <%= render "home/adsense" %>
+  <%#= render "bots/bots", title:@etc_bots_title, bots:@etc_bots %>
+<% end %>
+
+
+
+

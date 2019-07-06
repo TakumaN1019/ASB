@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "BOT SELECT" %></title>
+    <link rel="icon" href="https://auto-select-bot.s3-ap-northeast-1.amazonaws.com/base/favicon.png" type="image/png">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- Google Webフォント -->
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Kosugi+Maru|Roboto&display=swap" rel="stylesheet">
+
+    <!-- twitterカード -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:url" content="<%= request.url %>">
+    <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : "BOT SELECT" %>">
+    <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : "" %>">
+    <meta property="og:image" content="<%= content_for?(:image) ? yield(:image) : "https://auto-select-bot.s3-ap-northeast-1.amazonaws.com/base/twitter_card.png" %>">
+
+    <!-- アドセンス自動広告 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-3382457633432768",
+        enable_page_level_ads: true
+      });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62311161-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-62311161-3');
+    </script>
+  </head>
+
+  <body>
+    <% if flash[:success] %>
+      <div id="success">
+        <p><%= flash[:success] %></p>
+      </div>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div id="notice">
+        <p id="message"><%= flash[:notice] %></p>
+      </div>
+      <div id="notice_back"></div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div id="alert">
+        <p id="message"><%= flash[:alert] %></p>
+        <p id="close"><i class="fas fa-times"></i></p>
+      </div>
+    <% end %>
+
+    <header>
+      <% if user_signed_in? %>
+        <div id="logo"><%= link_to bots_path, class:"logo_font" do %><i class="fas fa-robot"></i> SELECT<% end %></div>
+        <div id="mypage"><%= link_to user_path(current_user.nickname) do %><i class="far fa-user-circle"></i><% end %></div>
+      <% else %>
+        <div id="logo"><%= link_to root_path, class:"logo_font" do %><i class="fas fa-robot"></i> SELECT<% end %></div>
+      <% end %>
+    </header>
+
+    <%= yield %>
+
+    <footer>
+      <ul>
+        <% if user_signed_in? %>
+          <li><%= link_to "マイページ", user_path(current_user.nickname) %></li>
+          <li><%= link_to "投稿", new_bot_path %></li>
+        <% else %>
+          <li><%= link_to "ログイン/登録", root_path %></li>
+        <% end %>
+      </ul>
+      <div id="footer_logo"><div id="footer_logo_soto"></div><div id="footer_logo_uti"></div></div>
+    </footer>
+
+  </body>
+
+</html>

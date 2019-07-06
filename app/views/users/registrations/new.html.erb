@@ -1,0 +1,35 @@
+<div id="form">
+
+  <p>ASBは、自分で悩むことなく、複数の選択肢から自動でボットが選択してくれるサービスです。</p>
+
+  <p>「どんなイラストを描こうか？」「今日は何を食べようか？」「今日は何をしようか？」などを、設定された選択肢の中から毎回ランダムに任意の数だけ抽出してくれます。</p>
+
+  <p>すでにあるボットを利用する場合は、登録無しですぐに利用することができます。</p>
+
+  <p>自分でオリジナルのボットをつくりたければ、Twitterアカウントでログインしましょう。</p>
+
+  <% if user_signed_in? %>
+    <%= link_to "マイページ", user_path(current_user.nickname), class:"btn" %>
+  <% else %>
+    <% if devise_mapping.omniauthable? %>
+      <% resource_class.omniauth_providers.each do |provider| %>
+        <% if OmniAuth::Utils.camelize(provider) == "Twitter" %>
+          <%= link_to(omniauth_authorize_path(resource_name, provider), class:"btn") do %>
+            <i class="fab fa-twitter"></i> ログイン/登録
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+</div>
+
+<%= render "bots/bots", title:@creative_bots_title, bots:@creative_bots %>
+<%= render "home/adsense" %>
+<%= render "bots/bots", title:@life_bots_title, bots:@life_bots %>
+<%= render "home/adsense" %>
+<%= render "bots/bots", title:@neta_bots_title, bots:@neta_bots %>
+<%= render "home/adsense" %>
+<%#= render "bots/bots", title:@etc_bots_title, bots:@etc_bots %>
+
+

@@ -1,0 +1,6 @@
+<div class="nested-fields">
+  <div class="field">
+    <%= f.text_field :name, maxlength: "50", placeholder: "選択肢", class:"select_name" %>
+    <div class="minus_field"><%= link_to_remove_association content_tag(:i, "", class:"fas fa-times-circle"), f, class:"minus" %></div>
+  </div>
+</div>

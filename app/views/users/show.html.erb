@@ -1,0 +1,17 @@
+<% content_for :title do %>
+  <%= "#{@user.name}(#{@user.nickname}) | BOT SELECT" %>
+<% end %>
+
+<div id="user">
+
+  <%= image_tag @user.image, class:"userimage" if @user.image? %>
+
+  <%= link_to "https://twitter.com/#{@user.nickname}", class:"username", target:"_blank" do %><span class="name"><%= @user.name %></span><br>
+     <span class="nickname">(@<%= @user.nickname %>)</span></p><% end %>
+
+  <%= link_to new_bot_path, class:"btn" do %><i class="fas fa-robot"></i> CREATE BOT<% end %>
+
+</div>
+
+<%= render "bots/bots", title:@my_bots_title, bots:@my_bots %>
+
